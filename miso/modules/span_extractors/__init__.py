@@ -1,0 +1,2 @@
+from miso.modules.span_extractors.endpoint_span_extractor import EndpointSpanExtractor
+from miso.modules.span_extractors.self_attentive_span_extractor import SelfAttentiveSpanExtractor
