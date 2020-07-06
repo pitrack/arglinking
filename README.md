@@ -44,11 +44,13 @@ The suffix `9_12` in `cached_bert_9_12.hdf5` refers to using BERT layers 9--12 (
 
 You may also need to set `set -f` to disable wildcard/glob expansion.
 
-# Data
+# Data and Models
 
 The RAMS dataset is available at https://nlp.jhu.edu/rams/. More information about the data is available on that webpage.
 
 We plan to release the other datasets or splits used in the paper at a later date.
+
+We also make available our [RAMS](https://nlp.jhu.edu/rams/models/rams_bert.tar.gz) and [GVDB](https://nlp.jhu.edu/rams/models/gvdb_bert.tar.gz) models.
 
 # Citation
 
