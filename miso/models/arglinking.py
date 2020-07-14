@@ -508,11 +508,8 @@ class ArgLinkingModel(Model):
 
     @overrides
     def decode(self, output_dict: Dict[str, torch.Tensor]):
-        if self._for_prediction:
-            # Make more predictions than necessary, and filter in post-processing
-            decoder = "greedy"
-        else:
-            decoder = output_dict["decoder"]
+        # Make sure this is set to greedy for arglinking
+        decoder = output_dict["decoder"]
 
         metadata = output_dict["metadata"][0]
         sentences, sentence_start_offsets = (metadata['sentences'],

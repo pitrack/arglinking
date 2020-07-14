@@ -53,7 +53,7 @@ class GVDBDatasetReader(DatasetReader):
         reports_skipped = 0
         args_skipped = 0
         input_args_seen = 0
-        for i,reportline in enumerate(reports):
+        for i, reportline in enumerate(reports):
             report = json.loads(reportline)
 
             tokens = []
@@ -65,10 +65,20 @@ class GVDBDatasetReader(DatasetReader):
             sentences = report["full_text"]
             spans = report["spans"]
 
+            # During training, we want to skip documents without arguments.
+            # During test, we do not. This flag is hard to pass through to
+            # the dataset reader, and so instead we directly  modify the code.
+            # It's possible that it's safe to always append @@UNKNOWN@@, but
+            # that will affect model behavior.
+            training = False
+
             if spans == []:
                 # No annotations for this report, so skip it
                 reports_skipped += 1
-                continue
+                if training:
+                    continue
+                else:
+                    spans.append([0,1,"@@UNKNOWN@@", "@@@", ["@@@"]])
 
             for sentence in sentences:
                 sentence_offsets.append(token_offset)
@@ -120,7 +130,6 @@ class GVDBDatasetReader(DatasetReader):
                             args.append(argument_span)
 
                             arg_sent_ids[argument_span] = arg_sentence_id
-
             if len(args) == 0:
                 logger.info("No values for report #{}".format(i))
                 reports_skipped += 1

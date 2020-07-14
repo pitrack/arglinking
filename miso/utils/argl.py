@@ -378,7 +378,7 @@ def argmax_decode(output_dict, text):
         roles = np.tile(np.arange(num_roles), num_preds)
 
         merged_predictions = [_interpret_preds(task, trigger_spans, argument_spans, sort_map, t_idx, a_idx, r, confidences, label_vocab, i, text)
-                              for t_idx, a_idx, r in zip(trigger_idx, trigger_args_idx, roles)
+                              for t_idx, a_idx, r in zip(pred_idx, pred_args_idx, roles)
                               if a_idx >= 0]
 
         return merged_predictions

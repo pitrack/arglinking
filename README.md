@@ -40,7 +40,7 @@ python -u -m miso.commands.evaluate ${MODEL_DIR}/model.tar.gz
        --batch-size 1
 ```
 
-The suffix `9_12` in `cached_bert_9_12.hdf5` refers to using BERT layers 9--12 (the top four layers).
+The suffix `9_12` in `cached_bert_9_12.hdf5` refers to using BERT layers 9--12 (the top four layers). These can be computed using `scripts/cache_bert_hf.py`, which uses the [Transformers](https://github.com/huggingface/transformers) library. See the header comment in that file for more details.
 
 You may also need to set `set -f` to disable wildcard/glob expansion.
 
