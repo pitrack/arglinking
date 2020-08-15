@@ -1,6 +1,6 @@
 # arglinking
 
-Repository for ACL 2020 paper: [Multi-Sentence Argument Linking](https://arxiv.org/abs/1911.03766) [[pdf]](https://arxiv.org/pdf/1911.03766.pdf).
+Repository for ACL 2020 paper: [Multi-Sentence Argument Linking](https://www.aclweb.org/anthology/2020.acl-main.718/) [[pdf]](https://www.aclweb.org/anthology/2020.acl-main.718.pdf).
 
 # Code
 
