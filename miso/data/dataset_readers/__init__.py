@@ -10,3 +10,4 @@ and produce datasets in the formats required by specific models.
 from miso.data.dataset_readers.dataset_reader import DatasetReader
 from miso.data.dataset_readers.rams import RAMSDatasetReader
 from miso.data.dataset_readers.gvdb import GVDBDatasetReader
+from miso.data.dataset_readers.gc2012 import GerberChai2012SRLDatasetReader

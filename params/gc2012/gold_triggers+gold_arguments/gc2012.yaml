@@ -1,0 +1,193 @@
+# Parameters of the Argument Linking model
+
+# Device-sensitive parameters
+arglink_data_dir: &arglink_data_dir <path/to/data>
+glove: &glove </path/to/glove_embeddings>
+
+# Frequently modified parameters
+serialization_dir: &serialization_dir <path/to/dir>
+train_data: &train_data "train/train.json"
+dev_data: &dev_data "dev/dev.json"
+test_data: &test_data "dev/dev.json"
+dev_gold_data_path: &dev_gold_data_path ""
+test_gold_data_path: &test_gold_data_path ""
+finetune: &finetune False
+pretrain_dir: &pretrain_dir ""
+
+lm_file: &lm_file <path/to/train_dev_contextualizedembeddings>
+test_lm_file: &test_lm_file <path/to/dev_test_contextualizedembeddings>
+
+# Memory constraint needed for trainer and model
+cpu_threshold: &cpu_threshold 1000
+
+# Model parameters
+model:
+  model_type: ArgLinkingModel
+  task_name: gc2012
+  arch_params:
+    granularity_level: &granularity_level document
+    use_gold_triggers: &use_gold_triggers True
+    use_gold_arguments: &use_gold_arguments True
+    scorer: ConllSrlScores
+    decoder: &decoder argmax
+    trigger_arg_components:
+      coarse_score: true
+      arg_score: false
+      token_distances: true
+    span_pair_feats:
+      use_token_distances: true
+      use_genre: true
+    link_scores:
+      use_trigger_scores: false
+      use_arg_scores: false
+      use_triggerrole_scores: false
+      use_argrole_scores: true
+      use_partner_scores: true
+      use_coarse_scores: false
+      apply_log_mask: false
+  token_embedders:
+    tokens:
+      vocab_namespace: tokens
+      embedding_dim: &word_emb_dim 300
+      trainable: false
+      pretrained_file: *glove
+    token_characters:
+      vocab_namespace: characters
+      embedding:
+        embedding_dim: 8
+        num_embeddings: 262
+      encoder:
+        embedding_dim: 8
+        num_filters: 50
+        ngram_filter_sizes: [3, 4, 5]
+  recurrent_dropout: False
+  default_dropout: &default_dropout 0.2
+  context_layer:
+    input_size: auto
+    hidden_size: 200
+    dropout: 0.4
+    num_layers: 3
+    bidirectional: True
+  trigger_mention_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  arg_mention_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  trigger_role_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  trigger_role_projection:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: auto
+    activations: relu
+    dropout: *default_dropout
+  arg_role_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  link_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  distance_feedforward:
+    input_dim: auto
+    num_layers: 2
+    hidden_dims: 150
+    activations: relu
+    dropout: *default_dropout
+  feature_size: 20
+  num_widths: 10 # for buckets
+  max_args_per_trigger: 10
+  max_training_doc_size: &max_training_doc_size 1000
+  max_inference_doc_size: *cpu_threshold
+  role_dim: 50
+  genres: &genres
+     ['nw']
+  trigger_spans_per_word: 0.4
+  arg_spans_per_word: 0.8
+  lexical_dropout: 0.5
+  lm_file: *lm_file
+  test_lm_file: *test_lm_file
+  lm_size: 768
+  lm_layers: [0,1,2,3]
+  empty_cache: true
+  dev_gold_data_path: *dev_gold_data_path
+  test_gold_data_path: *test_gold_data_path
+
+
+# Data parameters
+data:
+  data_dir: *arglink_data_dir
+  train_data: *train_data
+  dev_data: *dev_data
+  test_data: *test_data
+  data_type: GerberChai-2012-SRL
+  granularity_level: *granularity_level
+  max_trigger_span_width: 99999
+  max_arg_span_width: 99999
+  use_gold_triggers: *use_gold_triggers
+  use_gold_arguments: *use_gold_arguments
+  decoder: *decoder
+  max_training_doc_size: *max_training_doc_size
+
+  batch_first: True
+  genres: *genres
+  iterator:
+    train_batch_size: &train_batch_size 1  # one document at a time
+    test_batch_size: 1
+    iter_type: BasicIterator
+    padding_noise: 0.0
+  pretrain_token_emb: *glove
+  pretrain_char_emb:
+
+
+# Training parameters
+environment:
+  recover: False
+  seed: 2
+  numpy_seed: 2
+  torch_seed: 2
+  serialization_dir: *serialization_dir
+  file_friendly_logging: False
+  gpu: True
+  cuda_device: 0
+  # ignore_params_check: True
+
+trainer:
+  device: # No need to be specified, will be updated at runtime
+  # Optimizer
+  no_grad: []
+  optimizer_type: adam
+  learning_rate: 0.001
+  decay: 0.999
+  decay_steps: 100
+  patience: 10
+  max_grad_norm: inf
+  batch_size: *train_batch_size
+  shuffle: True
+  epochs: 100
+  finetune: *finetune
+  pretrain_dir: *pretrain_dir
+  cpu_threshold: *cpu_threshold
+  cpu_eval_freq: 5
+  dev_metric: "+srl_f1"
+  serialization_dir: *serialization_dir
+  model_save_interval:
+
+test:
+  evaluate_on_test: True

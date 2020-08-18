@@ -58,10 +58,21 @@ RAMS = {
     "spans_may_overlap": True,
 }
 
+GC2012 = {
+    "granularity": "document",
+    "include_strings": False,
+    "links_may_cross_sentence_boundary": True,
+    "trigger_spans_may_cross_sentence_boundary": False,
+    "arg_spans_may_cross_sentence_boundary": False,
+    "reported_token_offset_granularity": "document",
+    "spans_may_overlap": True,
+}
+
 TASK_CONFIGS = {
     "conll2012": CONLL2012,
     "gvdb": GVDB,
     "rams": RAMS,
+    "gc2012": GC2012,
 }
 
 

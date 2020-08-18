@@ -31,6 +31,24 @@ To generate the BNB data used in Multi-Sentence Argument Linking, follow the ste
 
 6. Run `python unbleach.py --bleached test_bleached.json --documents documents.json --outfile test_unbleached.json`
 
+## Replication
+
+We found a bug that caused our reported results to be based on greedy decoding instead of argmax decoding. In addition to providing replication results below, we also report results with argmax decoding. The reported metric is F1.
+
+Using BERT layers 9--12:
+
+|                | greedy (dev/test) | argmax (dev/test) |
+|----------------|-------------------|-------------------|
+| greedy (train) | 73.5/73.8         | 91.5/90.9         |
+| argmax (train) | 72.5/73.0         | 89.3/86.5         |
+
+and using BERT layers 6--9:
+
+|                | greedy (dev/test) | argmax (dev/test) |
+|----------------|-------------------|-------------------|
+| greedy (train) | 72.6/75.1         | 89.8/89.2         |
+| argmax (train) | 72.1/75.9         | 91.3/91.0         |
+
 ## Citation
 
 If you use wish to reference this dataset, please cite the original dataset release paper. If you use the splits or the json files, please also cite our work.

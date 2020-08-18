@@ -592,7 +592,7 @@ class ArgLinkingModel(Model):
                     for i,line in enumerate(f):
                         obj = json.loads(line)
                         objs.append(obj)
-                        if obj["doc_key"] == doc_id:
+                        if (obj["doc_key"] == doc_id) and (tuple(obj['trigger']['span']) == metadata['triggers'][0]):
                             data = obj
                             replace_idx = i
 

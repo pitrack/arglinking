@@ -7,6 +7,7 @@ from miso.data.iterators import BucketIterator, BasicIterator
 from miso.data.token_indexers import SingleIdTokenIndexer, TokenCharactersIndexer
 from miso.data.dataset_readers import RAMSDatasetReader
 from miso.data.dataset_readers import GVDBDatasetReader
+from miso.data.dataset_readers import GerberChai2012SRLDatasetReader
 
 logger = logging.init_logger()
 
@@ -35,6 +36,19 @@ def load_dataset_reader(dataset_type, *args, **kwargs):
                 tokens=SingleIdTokenIndexer(namespace='tokens'),
                 token_characters=TokenCharactersIndexer(namespace='characters')
             )
+        )
+
+    elif dataset_type == "GerberChai-2012-SRL":
+        dataset_reader = GerberChai2012SRLDatasetReader(
+            max_trigger_span_width=kwargs.get('max_trigger_span_width'),
+            max_arg_span_width=kwargs.get('max_arg_span_width'),
+            use_gold_triggers=kwargs.get('use_gold_triggers'),
+            use_gold_arguments=kwargs.get('use_gold_arguments'),
+            token_indexers=dict(
+                tokens=SingleIdTokenIndexer(namespace='tokens'),
+                token_characters=TokenCharactersIndexer(namespace='characters')
+            ),
+            genres=kwargs.get('genres', 'nw'), # default to newswire
         )
 
     return dataset_reader

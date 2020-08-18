@@ -12,20 +12,20 @@ This code has been verified to run with python 3.6.9 and the packages listed in 
 ## How to train models
 
 
-For RAMS and GVDB:
+For RAMS, GVDB, and BNB:
 ```
 CUDA_VISIBLE_DEVICES=-1
 python -u -m miso.commands.train <path/to/params.yaml>
 ```
 
-The params file for the RAMS model is located at `params/rams/gold_triggers+gold_arguments/rams.yaml`. It contains `gpu` and `cuda_device` fields that you can modify depending on whether you are using CPU or GPU.
+The params file for the RAMS model is located at `params/rams/gold_triggers+gold_arguments/rams.yaml`. The params file for the BNB model is located at `params/gc2012/gold_triggers+gold_arguments/gc2012.yaml`. They contain `gpu` and `cuda_device` fields that you can modify depending on whether you are using CPU or GPU.
 
 Various experimental settings from Table 2 may be set in the data reader (`miso/data/dataset_readers/rams.py`) and model (`miso/models/arglinking.py`) as designated with comments containing `!!!!!` (caveats/important items to be aware of), `baseline` (trigger representation baselines), and `EXPERIMENT` (use of distractor spans vs. full enumeration of spans).
 
 ## How to evaluate models
 
 
-For RAMS and GVDB:
+For RAMS, GVDB, and BNB:
 ```
 MODEL_DIR=<path/to/model>
 OUTPUT_DIR=${MODEL_DIR}/results/test
