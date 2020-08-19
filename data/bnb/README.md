@@ -2,7 +2,7 @@
 
 ## About
 
-This directory contains the version of BNB used in [Multi-Sentence Argument Linking](https://arxiv.org/abs/1911.03766).
+This directory contains the version of BNB used in [Multi-Sentence Argument Linking](https://www.aclweb.org/anthology/2020.acl-main.718/).
 It is originally derived from [Gerber and Chai, 2012](https://www.mitpressjournals.org/doi/pdf/10.1162/COLI_a_00110), available for download [here](http://lair.cse.msu.edu/projects/implicit_annotations.html).
 These splits are released with permission from the author.
 

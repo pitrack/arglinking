@@ -2,7 +2,7 @@
 
 ## About
 
-This directory contains the version of AIDA-1 used in [Multi-Sentence Argument Linking](https://arxiv.org/abs/1911.03766). The data for AIDA-1 was created by the Linguistic Data Consortium (LDC) in support of the DARPA AIDA program. The LDC catalog numbers are LDC2019E04 (Practice data), LDC2019E07 (Practice annotations), LDC2019E42 (Eval data), and LDC2019E77 (Eval annotations).
+This directory contains the version of AIDA-1 used in [Multi-Sentence Argument Linking](https://www.aclweb.org/anthology/2020.acl-main.718/). The data for AIDA-1 was created by the Linguistic Data Consortium (LDC) in support of the DARPA AIDA program. The LDC catalog numbers are LDC2019E04 (Practice data), LDC2019E07 (Practice annotations), LDC2019E42 (Eval data), and LDC2019E77 (Eval annotations).
 
 The `splits` directory contains:
 

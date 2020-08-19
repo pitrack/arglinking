@@ -2,7 +2,7 @@
 
 ## About
 
-This directory contains the version of GVDB used in [Multi-Sentence Argument Linking](https://arxiv.org/abs/1911.03766).
+This directory contains the version of GVDB used in [Multi-Sentence Argument Linking](https://www.aclweb.org/anthology/2020.acl-main.718/).
 It is originally derived from [Pavlick et al., 2016](https://www.aclweb.org/anthology/D16-1106.pdf), available for download [here](http://gun-violence.org/).
 These splits are rereleased with permission from the author.
 
