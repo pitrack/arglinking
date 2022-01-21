@@ -1,6 +1,6 @@
 conllu==0.11
 h5py==2.10.0
-ipython==7.8.0
+ipython==7.16.3
 overrides
 pylint==2.3.1
 pytorch-pretrained-bert==0.6.2
